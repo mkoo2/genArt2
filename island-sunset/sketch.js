@@ -3,6 +3,7 @@
 let sky, water, song, island;
 
 function preload() {
+	
 //	song = loadSound('hawaii.mp3');
 }
 
