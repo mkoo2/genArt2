@@ -1,7 +1,7 @@
 //For the #WCCChallenge, theme: "tiny island"
 // noprotect
 let sky, water, song, island;
-let sunsetColor;
+let sunriseColor;
 
 function preload() {
 	
@@ -13,7 +13,7 @@ function setup() {
 	sky = createGraphics(width, height);
 	water = createGraphics(width, height);
 
-	sunsetColor = "orange";
+	sunriseColor = "orange";
 	buildEnviron();
 
 	imageMode(CENTER);
@@ -31,7 +31,7 @@ function buildEnviron () {
 	//sky
 	for (let y = 0; y < 2 * height / 3; y++) {
 		from = color('skyblue');
-		to = color(sunsetColor); // 'red'
+		to = color(sunriseColor); // 'red'
 		current = lerpColor(from, to, map(y, 0, 2 * height / 3, 0, 1));
 		sky.strokeWeight(2);
 		sky.stroke(current);
@@ -80,7 +80,7 @@ function draw() {
 	translate(width / 2, height / 2);
 	if (frameCount > 1) {
 		if (frameCount == 1500) {
-			sunsetColor = 'red';
+			sunriseColor = 'red';
 			buildEnviron();
 		}
 		scale(1.05 + sin(frameCount / 400) / 20)
@@ -120,7 +120,7 @@ function drawCloud(cx, cy, w, h) {
 	let ba = map(cy, 0, 2 * height / 3, 10, 60);
 	from = color('black');
 	from.setAlpha(ta);
-	to = color(sunsetColor); // red
+	to = color(sunriseColor); // red
 	to.setAlpha(ba);
 	sky.strokeWeight(1);
 	for (let y = cy - h / 2; y < cy + h / 2; y += 0.5) {
