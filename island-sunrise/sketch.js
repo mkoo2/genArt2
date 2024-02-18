@@ -13,7 +13,7 @@ function setup() {
 	sky = createGraphics(width, height);
 	water = createGraphics(width, height);
 
-	sunriseColor = "red";
+	sunriseColor = "orange";
 	buildEnviron();
 
 	imageMode(CENTER);
@@ -57,6 +57,8 @@ function buildEnviron () {
 	for (let a = 0; a < PI; a += PI / 120) {
 		if (sunriseColor == 'orange') {
 			water.stroke(255, 165, 0, 80 * sin(a)); // 
+		} else if (sunriseColor == 'grey') {
+			water.stroke(211, 211, 211, 80 * sin(a)); // 
 
 		} else {
 			water.stroke(200, 0, 0, 80 * sin(a)); // red
@@ -85,7 +87,7 @@ function draw() {
 	translate(width / 2, height / 2);
 	if (frameCount > 1 && frameCount < 10000) {
 		if (frameCount == 2500) {
-			sunriseColor = 'orange';
+			sunriseColor = 'red';
 			buildEnviron();
 		}
 		scale(1.05 + sin(frameCount / 400) / 20)
@@ -107,7 +109,9 @@ function draw() {
 			strokeWeight(map(a, HALF_PI, PI, 3, 0.5  ))
 			if (sunriseColor == 'orange') {
 				stroke(255, 165, 0, map(a, HALF_PI, PI, 0, 50)); // orange
-
+			} else if (sunriseColor == 'grey') {
+				stroke(211, 211, 211, map(a, HALF_PI, PI, 0, 50)); // grey
+	
 			} else {
 				stroke(255, 255, 255, map(a, HALF_PI, PI, 0, 50)); // red
 			}
