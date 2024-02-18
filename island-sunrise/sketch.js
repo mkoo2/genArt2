@@ -88,6 +88,7 @@ function draw() {
 		//sun
 		fill('gold');
 		noStroke();
+		// 100 - 15 + ; height = 600
 		ellipse(0, height / 6 - height / 40 + frameCount / 200, height / 20);
 		image(water, 0, 0);
 		if (island) drawIsland();
