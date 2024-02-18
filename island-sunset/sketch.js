@@ -1,6 +1,7 @@
 //For the #WCCChallenge, theme: "tiny island"
 // noprotect
 let sky, water, song, island;
+let sunsetColor;
 
 function preload() {
 	
@@ -11,10 +12,26 @@ function setup() {
 	createCanvas(windowWidth, windowHeight / 1.5);
 	sky = createGraphics(width, height);
 	water = createGraphics(width, height);
+
+	sunsetColor = "orange";
+	buildEnviron();
+
+	imageMode(CENTER);
+	background(0);
+	textSize(height / 12);
+	textAlign(CENTER, CENTER);
+	fill(255, 150);
+	noStroke();
+	text('click to start sound', width / 2, height / 2);
+	island = false;
+//	noLoop();
+}
+
+function buildEnviron () {
 	//sky
 	for (let y = 0; y < 2 * height / 3; y++) {
 		from = color('skyblue');
-		to = color('red');
+		to = color(sunsetColor); // 'red'
 		current = lerpColor(from, to, map(y, 0, 2 * height / 3, 0, 1));
 		sky.strokeWeight(2);
 		sky.stroke(current);
@@ -38,7 +55,7 @@ function setup() {
 	}
 	//sun rays on water
 	for (let a = 0; a < PI; a += PI / 120) {
-		water.stroke(200, 0, 0, 80 * sin(a));
+		water.stroke(200, 0, 0, 80 * sin(a)); // red
 		water.strokeWeight(height / 80);
 		water.line(width / 2 + cos(a) * height / 20, 2 * height / 3 + height / 100, width / 2 + cos(a) * width, 2 * height / 3 + sin(a) * height);
 
@@ -50,15 +67,7 @@ function setup() {
 		let h = w * (0.25 - cos(a) / 8);
 		drawCloud(random(width), y, w, h);
 	}
-	imageMode(CENTER);
-	background(0);
-	textSize(height / 12);
-	textAlign(CENTER, CENTER);
-	fill(255, 150);
-	noStroke();
-	text('click to start sound', width / 2, height / 2);
-	island = false;
-	noLoop();
+
 }
 
 function mousePressed() {
@@ -70,6 +79,10 @@ function mousePressed() {
 function draw() {
 	translate(width / 2, height / 2);
 	if (frameCount > 1) {
+		if (frameCount == 1500) {
+			sunsetColor = 'red';
+			buildEnviron();
+		}
 		scale(1.05 + sin(frameCount / 400) / 20)
 		image(sky, 0, 0);
 		//sun
@@ -107,7 +120,7 @@ function drawCloud(cx, cy, w, h) {
 	let ba = map(cy, 0, 2 * height / 3, 10, 60);
 	from = color('black');
 	from.setAlpha(ta);
-	to = color('red');
+	to = color(sunsetColor); // red
 	to.setAlpha(ba);
 	sky.strokeWeight(1);
 	for (let y = cy - h / 2; y < cy + h / 2; y += 0.5) {
