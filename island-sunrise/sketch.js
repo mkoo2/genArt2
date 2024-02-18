@@ -85,9 +85,15 @@ function mousePressed() {
 
 function draw() {
 	translate(width / 2, height / 2);
+<<<<<<< HEAD:island-sunrise/sketch.js
 	if (frameCount > 1 && frameCount < 10000) {
 		if (frameCount == 2500) {
 			sunriseColor = 'red';
+=======
+	if (frameCount > 1) {
+		if (frameCount == 2000) {
+			sunsetColor = 'red';
+>>>>>>> b9b2838 (add point line plan project):island-sunset/sketch.js
 			buildEnviron();
 		}
 		scale(1.05 + sin(frameCount / 400) / 20)
