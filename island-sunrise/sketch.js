@@ -55,7 +55,7 @@ function buildEnviron () {
 	}
 	//sun rays on water
 	for (let a = 0; a < PI; a += PI / 120) {
-		if (sunriseColor == 'orangle') {
+		if (sunriseColor == 'orange') {
 			water.stroke(255, 165, 0, 80 * sin(a)); // 
 
 		} else {
@@ -105,7 +105,7 @@ function draw() {
 			y += sin(a) * cos((8 * a) + frameCount / 200) * height / 36;
 			let w = (1 - sin(a)) * (width / 4) + noise((3 * a) + frameCount / 400) * width / 8;
 			strokeWeight(map(a, HALF_PI, PI, 3, 0.5  ))
-			if (sunriseColor == 'orangle') {
+			if (sunriseColor == 'orange') {
 				stroke(255, 165, 0, map(a, HALF_PI, PI, 0, 50)); // orange
 
 			} else {
