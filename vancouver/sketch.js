@@ -155,7 +155,7 @@ function draw() {
 				ellipse(rx, ry, random(20, 50), random(2, 20));
 			}
 			let rd = random(160, 230);
-			if (millis() - start > 10000) { // then the clouds
+			if (millis() - start > 10000 && millis() - start < 20000) { // then the clouds
 				strokeWeight(1);
 				stroke(rd, rd, rd, map(millis() - start, 0, 80000, 0, 255)); //decrease opacity
 				for (let i = 0; i < 1000; i++) {
@@ -175,7 +175,7 @@ function draw() {
 //-----------------------------
 // Nice random builing function
 //
-function building(_x, _y, _w, _h, _c, ) {
+function building(_x, _y, _w, _h, _c,) {
 	let x = _x;
 	let y = _y;
 	let w = _w;
@@ -529,16 +529,26 @@ function tree_mtn(_p, _v, _ns, _c, _r, _ts) {
 	}
 }
 
+function keyPressed() {
+	if (millis() - lapse > 400) {
+		if (keyCode == 32) {
+
+			lapse = millis();
+			startmeup();
+		}; // SPACE 
+	}
+}
+
 //Richard Bourne Special
 // save jpg
 let lapse = 0; // mouse timer
 function mousePressed() {
 	if (millis() - lapse > 400) {
-		lapse = millis();
+		//		lapse = millis();
 		if (mouseButton === RIGHT) {
 			save("img_" + month() + '-' + day() + '_' + hour() + '-' + minute() + '-' + second() + ".jpg");
 		} else {
-			startmeup();
+//			startmeup();
 		}
 	}
 	return (false)
