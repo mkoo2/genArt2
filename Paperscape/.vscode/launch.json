@@ -9,7 +9,7 @@
             "request": "launch",
             "type": "chrome",
             "runtimeExecutable": "/usr/bin/chromium",
-            "url": "http://localhost:8080",
+            "url": "http://localhost:3000",
             "webRoot": "${workspaceFolder}"
         }
     ]
