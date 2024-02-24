@@ -10,6 +10,8 @@ let w
 function setup() {
 	createCanvas(windowWidth, windowHeight);
 	w = max(windowWidth, windowHeight)
+
+	// background is yellow
 	bgColor = color('#FFFFC7')
 	background(bgColor);
 	bgColor.setAlpha(30)
@@ -135,6 +137,7 @@ class drip {
 		this.timerEnd = (height - this.pos.y) * 2.5
 		this.timer = 0
 		this.lowSpot = false;
+		this.lowSpotDisplay = false;
 	}
 
 	droop() {
@@ -154,6 +157,11 @@ class drip {
 		// add the water fall color of cyan to the low spot.
 		if (this.lowSpot == true) {
 			this.color = color('cyan')
+			// display the low spot once per drip
+			if (this.lowSpotDisplay == false ) {
+				console.log ("drip432:" + this.pos.x + " " + this.pos.y );
+				this.lowSpotDisplay = true;
+			}
 		}
 
 		fill(this.color)
@@ -161,7 +169,6 @@ class drip {
 		this.sizeVel += this.sizeAcc
 		this.size += this.sizeVel
 		let sOff = map(noise(frameCount / 100, this.sNoise), 0, 1, -this.size / 3, this.size / 3)
-		//console.log ("drip432:" + this.pos.x + " " + this.pos.y );
 		let sizeX = this.size
 
 		// set the width of the low spot to 4
