@@ -48,6 +48,8 @@ class dripper {
 		this.vel = createVector(4, 0)
 		this.colorGrad = random(100)
 		this.priorY = 0
+
+		// calc out the low spot
 		this.lowSpot = createVector(0, 0);
 		this.lowestSpot = createVector(0, 0);
 		this.lowSpotId = 0;
@@ -149,6 +151,7 @@ class drip {
 		this.stroke.setAlpha(this.alpha / 2)
 		this.color.setAlpha(this.alpha)
 
+		// add the water fall color of cyan to the low spot.
 		if (this.lowSpot == true) {
 			this.color = color('cyan')
 		}
@@ -160,6 +163,8 @@ class drip {
 		let sOff = map(noise(frameCount / 100, this.sNoise), 0, 1, -this.size / 3, this.size / 3)
 		//console.log ("drip432:" + this.pos.x + " " + this.pos.y );
 		let sizeX = this.size
+
+		// set the width of the low spot to 4
 		if (this.lowSpot == true) {
 			//        sOff = 0;
 			sizeX = 4 + sOff
