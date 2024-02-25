@@ -20,7 +20,7 @@ let center, tcenter;
 let oheight, owidth;
 
 function preload() {
-	stars = loadTable('BSC.csv', 'header');
+	stars = loadTable('http://localhost:3000/BSC.csv', 'header');
 }
 
 function setup() {
