@@ -11,7 +11,7 @@ r0.1 - added balconies and curved windows
 r0.11 - added building shading
 r0.2 - added difference clouds
 
-#WCCChallenge - Where I Livea
+#WCCChallenge - Where I Live
 
 Left click regenerates the scene
 Right Click saves the image
@@ -140,7 +140,7 @@ function draw() {
 	//rain
 	if (rain) {
 		// subtly animated clouds
-		if (millis() - start > 3000) { // then the clouds
+		if (millis() - start > 3000 && (millis() - start < 17000)) { // then the clouds
 			noiseDetail(8, 0.85);
 			let noiseScale = 0.0001;
 			noStroke();
