@@ -4,7 +4,7 @@ function makeAxes() {
 	cg2.translate(cg2.width / 2, cg2.height / 2);
 	for (let i = 0; i < 10; i++) {
 		cg2.noFill();
-		cg2.stroke(255);
+		cg2.stroke(255); // white
 		cg2.strokeWeight(0.2 * oheight / 566);
 		cg2.ellipse(0, 0, 2 * i * oheight / 9, 2 * i * oheight / 9);
 		cg2.textAlign(CENTER, BOTTOM);
