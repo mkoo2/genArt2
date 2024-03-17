@@ -6,6 +6,8 @@
 // See other submissions here: https://openprocessing.org/curation/78544
 // Join the Birb's Nest Discord community!  https://discord.gg/S8c7qcjw2b
 
+// find the pink block - mtk 3/17/24
+
 let gLeftPt;
 let gRightPt;
 
@@ -42,12 +44,12 @@ function draw() {
   // draw background
 
   noStroke();
-  
+
   // let bgCol = color(30, 0, 60, 0.05);  
   // console.log("bk col34:"+ bgCol)
   // bgCol = color(35, 0, 60, 0.05);  
   // console.log("bk col35:"+ bgCol)
-  
+
   for (let ground of gBgGround) {
     fill(random(30, 35), 0, 60, 0.05);
     triangle(ground.x, ground.y, gLeftPt.x, gLeftPt.y, gRightPt.x, gRightPt.y);
@@ -55,7 +57,7 @@ function draw() {
 
   for (let sky of gBgSky) {
     let color3 = color(random(180, 250), 60, 80, 0.2)
-//    console.log("sky343:" + color3)
+    //    console.log("sky343:" + color3)
     fill(random(180, 250), 60, 80, 0.2);
     triangle(sky.x, sky.y, gLeftPt.x, gLeftPt.y, gRightPt.x, gRightPt.y);
   }
@@ -96,7 +98,7 @@ function createBuilding() {
     let block = new BuildingBlock(yp, i);
     block.level > 0 ? upper.push(block) : block.level < 0 ? lower.push(block) : mid.push(block);
     yp -= random(0.8, 1.2) * gWallHeightInc;
-//    console.log("yp343:" + yp)
+    //    console.log("yp343:" + yp)
   }
 
   // adjust array for rendering purposes
@@ -142,18 +144,18 @@ class BuildingBlock {
 
     this.indx = i
     // create walls
-//    console.log("pts: " + points)
+    //    console.log("pts: " + points)
     // check color
     let color34 = color(cHue, cSat, cLig * 0.75)
     //console.log ("wall col34:" + color34)
-    const createWall = (i,points, colorMultiplier, hasWindows) => new Wall(i, points, color(cHue, cSat, cLig * colorMultiplier), hasWindows);
+    const createWall = (i, points, colorMultiplier, hasWindows) => new Wall(i, points, color(cHue, cSat, cLig * colorMultiplier), hasWindows);
     const ceilingWall = createWall(i, [leftCornerLine.p1, centerLine.p1, rightCornerLine.p1, ceilingPt], 1.0, false);
     const leftWall = createWall(i, [leftCornerLine.p1, leftCornerLine.p0, centerLine.p0, centerLine.p1], 0.9, true);
     const rightWall = createWall(i, [centerLine.p1, centerLine.p0, rightCornerLine.p0, rightCornerLine.p1], 0.75, true);
     const floorWall = createWall(i, [leftCornerLine.p0, centerLine.p0, rightCornerLine.p0, floorPt], 0.6, false);
 
     if (this.indx == 0) {
-       console.log ("right wall32:" + rightWall.allPoints)    
+      console.log("right wall32:" + rightWall.allPoints)
     }
     // order walls for rendering purposes
     const isAboveLeftPt = centerUpperPt.y > gLeftPt.y && centerLowerPt.y > gLeftPt.y;
@@ -173,12 +175,12 @@ class BuildingBlock {
   getCornerLine(ptX, line, perspectivePt) {
     let boundLines = [new Line(line.p0, perspectivePt), new Line(line.p1, perspectivePt)];
 
-    let intersections = boundLines.map( (boundLine) => getIntersectionPtWithConstant(ptX, boundLine) );
-    
+    let intersections = boundLines.map((boundLine) => getIntersectionPtWithConstant(ptX, boundLine));
+
     let line22 = new Line(...intersections)
-    
+
     //print ("line22: " + line22 + " p0.x:" + line22.p0.x)
-    
+
     return line22
   }
 
@@ -202,7 +204,7 @@ class BuildingBlock {
 class Wall {
   constructor(i, points, c, hasWindows = false) {
     this.allPoints = points;
-//    console.log("pts2:" + points)
+    //    console.log("pts2:" + points)
     this.color = c;
     this.indxw = i;
 
@@ -277,9 +279,9 @@ class Wall {
   }
 
   draw() {
-//    console.log("indx: " + this.indxw)
+    //    console.log("indx: " + this.indxw)
     if (this.indxw == 10) {
-//      console.log("color23:" +this.color)
+      //      console.log("color23:" +this.color)
       fill(color('magenta'));
     } else {
       fill(this.color);
@@ -297,7 +299,7 @@ class Wall {
     );
 
     let color5 = color(hue(this.color), saturation(this.color), lightness(this.color) * 0.8, 0.5)
-//    console.log ("wincol:" + color5)
+    //    console.log ("wincol:" + color5)
     fill(hue(this.color), saturation(this.color), lightness(this.color) * 0.8, 0.5);
     stroke(hue(this.color), saturation(this.color), lightness(this.color) * 0.8, 0.5);
 
