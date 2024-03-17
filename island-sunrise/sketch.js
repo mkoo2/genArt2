@@ -130,6 +130,10 @@ function draw() {
 	}
 }
 
+//
+// draw the clouds 
+//
+
 function drawCloud(cx, cy, w, h) {
 	let ta = map(cy, 0, 2 * height / 3, 20, 60);
 	let ba = map(cy, 0, 2 * height / 3, 10, 60);
