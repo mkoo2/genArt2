@@ -1,3 +1,7 @@
+/**
+ * draw triangles
+ * 
+ */
 let vectors = []
 let filler = {}
 let mainHue;
@@ -8,6 +12,7 @@ let iteratorArray = [];
 let triNum;
 
 let genNewTriangle = true
+let colorOn = true
 
 function setup() {
 	// pixelDensity(5)
@@ -51,7 +56,12 @@ function draw() {
 	// background(255);
 
 	if (genNewTriangle) {
-		const newTriangle = findNewTriangle()
+		newTriangle = findNewTriangle()
+		let xTri = (newTriangle.triangle[0].x + newTriangle.triangle[1].x + newTriangle.triangle[2].x) / 3
+		let yTri = (newTriangle.triangle[0].y + newTriangle.triangle[1].y + newTriangle.triangle[2].y) / 3
+		newTriangle.xcenter = xTri
+		newTriangle.ycenter = yTri
+//		newTriangle
 		if (filler.count != 1) {
 			triangles.push(newTriangle)
 			// print(newTriangle)
@@ -62,33 +72,28 @@ function draw() {
 		}
 	}
 
-	//console.log("iterator size: " + iteratorArray.length);
+//	console.log("iterator size: " + iteratorArray.length);
 	
 	for (let i = 0; i < iteratorArray.length; i++) {
 		const nowTriangle = triangles[iteratorArray[i]]
 		// print(nowTriangle)
-		nowTriangle.bezier[1].lerp(nowTriangle.bezier[0], 0.08)
-		nowTriangle.bezier[2].lerp(nowTriangle.bezier[3], 0.08)
+			nowTriangle.bezier[1].lerp(nowTriangle.bezier[0], 0.08)
+			nowTriangle.bezier[2].lerp(nowTriangle.bezier[3], 0.08)
 		colorMode(RGB)
-		const nowColor = lerpColor(nowTriangle.color.from, nowTriangle.color.to, nowTriangle.iteration / 100)
-		if (nowTriangle.triNumber == 10) {
-			fill(nowColor)
-		} else {
-			fill(nowColor)
-		}
+		nowColor = nowTriangle.color.from
+			nowColor = lerpColor(nowTriangle.color.from, nowTriangle.color.to, nowTriangle.iteration / 40)
+
+		fill(nowColor)
 		bezier(nowTriangle.bezier[0].x, nowTriangle.bezier[0].y,
 			nowTriangle.bezier[1].x, nowTriangle.bezier[1].y,
 			nowTriangle.bezier[2].x, nowTriangle.bezier[2].y,
 			nowTriangle.bezier[3].x, nowTriangle.bezier[3].y)
 		iteratorArray[i]++
 		fill(0)
-		// find the center of the triangle
-		let xTri = (nowTriangle.triangle[0].x + nowTriangle.triangle[1].x + nowTriangle.triangle[2].x) / 3
-		let yTri = (nowTriangle.triangle[0].y + nowTriangle.triangle[1].y + nowTriangle.triangle[2].y) / 3
 
 		// label the triangles from 0 to 60
 		if (nowTriangle.triNumber < 60) {
-			text("t:" +nowTriangle.triNumber, xTri-10, yTri);
+			text("t:" +nowTriangle.triNumber, nowTriangle.xcenter-10, nowTriangle.ycenter);
 		}
 		nowTriangle.iteration++
 		if (iteratorArray[i] > triangles.length - 1) {
@@ -133,6 +138,8 @@ function findNewTriangle() {
 			bezier: [nowVertex.copy(), filler.nowVertex.copy(), filler.nowVertex.copy(), lastVertex.copy()],
 			iteration: 0,
 			triNumber: triNum,
+			xcenter: 0,
+			ycenter: 0,
 			color: generateColor()
 		}
 		// print(filler.nowVertex)
@@ -147,6 +154,8 @@ function findNewTriangle() {
 			bezier: [nowVertex.copy(), targetVertex.copy(), targetVertex.copy(), lastVertex.copy()],
 			iteration: 0,
 			triNumber: triNum,
+			xcenter:0,
+			ycenter:0,
 			color: generateColor()
 		}
 		// print(2)
@@ -155,7 +164,31 @@ function findNewTriangle() {
 }
 
 function keyPressed() {
-	setup()
+	// setup()
+	if (colorOn) {
+		colorOn = false;
+	} else {
+		colorOn = true;
+	}
+
+	let arrayStr = ""
+
+	let drawTriangle = 20
+	if (triangles.length > 60) {
+		drawTriangle = 50;
+	}
+
+
+	for (let i = 0; i < 50; i++) {
+		const nowTriangle = triangles[i]
+		nowTriangle.bezier[0] = nowTriangle.triangle[0].copy();
+		nowTriangle.bezier[1] = nowTriangle.triangle[1].copy();
+		nowTriangle.bezier[2] = nowTriangle.triangle[1].copy();
+		nowTriangle.bezier[3] = nowTriangle.triangle[2].copy();
+		nowTriangle.iteration=0
+		arrayStr += nowTriangle.triNumber + " "
+	}
+//	console.log("arr:" + arrayStr)
 }
 
 function mousePressed() {
