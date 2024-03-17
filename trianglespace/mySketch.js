@@ -12,6 +12,7 @@ let iteratorArray = [];
 let triNum;
 
 let genNewTriangle = true
+let colorAll = true
 
 function setup() {
 	// pixelDensity(5)
@@ -93,7 +94,7 @@ function draw() {
 			nowTriangle.bezier[3].x, nowTriangle.bezier[3].y)
 		iteratorArray[i]++
 
-		// label the triangles from 0 to 70
+		// label the triangles from 0 to 80
 		if (nowTriangle.triNumber < 80) {
 			if (nowTriangle.resetColor) {
 				fill('red')
@@ -190,14 +191,33 @@ function keyPressed() {
 function resetTriColors() {
 	let arrayStr = ""
 
+	if (colorAll) {
+		colorAll = false;
+	} else {
+		colorAll=true;
+	}
 	let drawTriangle = 0
 	if (triangles.length > 60) {
 		drawTriangle = 120;
 	}
+	//console.log("colorAll:" + colorAll)
 
 	for (let i = 0; i < drawTriangle; i++) {
 		const nowTriangle = triangles[i]
-		if ((nowTriangle.triNumber > 0 && nowTriangle.triNumber < 19) ||
+		nowTriangle.resetColor = false
+	}
+
+	// redraw every other circle
+	for (let i = 0; i < drawTriangle; i++) {
+		const nowTriangle = triangles[i]
+		if (colorAll) {
+			nowTriangle.bezier[0] = nowTriangle.triangle[0].copy();
+			nowTriangle.bezier[1] = nowTriangle.triangle[1].copy();
+			nowTriangle.bezier[2] = nowTriangle.triangle[1].copy();
+			nowTriangle.bezier[3] = nowTriangle.triangle[2].copy();
+			nowTriangle.resetColor = true
+			nowTriangle.iteration = 0
+		} else if ((nowTriangle.triNumber > 0 && nowTriangle.triNumber < 19) ||
 			(nowTriangle.triNumber > 37 && nowTriangle.triNumber < 54) ||
 			(nowTriangle.triNumber > 72 && nowTriangle.triNumber < 90)) {
 			nowTriangle.bezier[0] = nowTriangle.triangle[0].copy();
