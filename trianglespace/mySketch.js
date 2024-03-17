@@ -65,9 +65,13 @@ function draw() {
 			triangles.push(newTriangle)
 			// print(newTriangle)
 			fill(newTriangle.color.from)
+			// if (newTriangle.triNumber > 20 && newTriangle.triNumber < 40) {
+			// 	stroke(51)
+			// }
 			triangle(newTriangle.triangle[0].x, newTriangle.triangle[0].y,
 				newTriangle.triangle[1].x, newTriangle.triangle[1].y,
 				newTriangle.triangle[2].x, newTriangle.triangle[2].y)
+			noStroke()
 		}
 	}
 
@@ -80,7 +84,7 @@ function draw() {
 		nowTriangle.bezier[2].lerp(nowTriangle.bezier[3], 0.08)
 		colorMode(RGB)
 		nowColor = nowTriangle.color.from
-		nowColor = lerpColor(nowTriangle.color.from, nowTriangle.color.to, nowTriangle.iteration / 50)
+		nowColor = lerpColor(nowTriangle.color.from, nowTriangle.color.to, nowTriangle.iteration / 30)
 
 		fill(nowColor)
 		bezier(nowTriangle.bezier[0].x, nowTriangle.bezier[0].y,
@@ -88,11 +92,15 @@ function draw() {
 			nowTriangle.bezier[2].x, nowTriangle.bezier[2].y,
 			nowTriangle.bezier[3].x, nowTriangle.bezier[3].y)
 		iteratorArray[i]++
-		fill(0)
 
 		// label the triangles from 0 to 70
-		if (nowTriangle.triNumber < 70) {
-//			text("t:" + nowTriangle.triNumber, nowTriangle.xcenter - 10, nowTriangle.ycenter);
+		if (nowTriangle.triNumber < 80) {
+			if (nowTriangle.resetColor) {
+				fill('red')
+			} else {
+				fill(0)
+			}
+//			text("" + nowTriangle.triNumber, nowTriangle.xcenter - 10, nowTriangle.ycenter);
 		}
 		nowTriangle.iteration++
 		if (iteratorArray[i] > triangles.length - 1) {
@@ -108,7 +116,7 @@ function draw() {
 
 	// console.log("fr:" + frameCount)
 	// reset the triangle colors every 1500 frames
-	if (!(frameCount % 1500)) {
+	if (!(frameCount % 1300)) {
 		console.log("reset Colors:" + frameCount)
 		resetTriColors()
 	}
@@ -146,6 +154,7 @@ function findNewTriangle() {
 			triNumber: triNum,
 			xcenter: 0,
 			ycenter: 0,
+			resetColor: false,
 			color: generateColor()
 		}
 		// print(filler.nowVertex)
@@ -183,16 +192,21 @@ function resetTriColors() {
 
 	let drawTriangle = 0
 	if (triangles.length > 60) {
-		drawTriangle = 70;
+		drawTriangle = 120;
 	}
 
 	for (let i = 0; i < drawTriangle; i++) {
 		const nowTriangle = triangles[i]
-		nowTriangle.bezier[0] = nowTriangle.triangle[0].copy();
-		nowTriangle.bezier[1] = nowTriangle.triangle[1].copy();
-		nowTriangle.bezier[2] = nowTriangle.triangle[1].copy();
-		nowTriangle.bezier[3] = nowTriangle.triangle[2].copy();
-		nowTriangle.iteration = 0
+		if ((nowTriangle.triNumber > 0 && nowTriangle.triNumber < 19) ||
+			(nowTriangle.triNumber > 37 && nowTriangle.triNumber < 54) ||
+			(nowTriangle.triNumber > 72 && nowTriangle.triNumber < 90)) {
+			nowTriangle.bezier[0] = nowTriangle.triangle[0].copy();
+			nowTriangle.bezier[1] = nowTriangle.triangle[1].copy();
+			nowTriangle.bezier[2] = nowTriangle.triangle[1].copy();
+			nowTriangle.bezier[3] = nowTriangle.triangle[2].copy();
+			nowTriangle.resetColor = true
+			nowTriangle.iteration = 0
+		}
 		arrayStr += nowTriangle.triNumber + " "
 	}
 	//	console.log("arr:" + arrayStr)
