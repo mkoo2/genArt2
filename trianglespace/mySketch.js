@@ -5,6 +5,7 @@ let mainHue;
 
 let triangles = [];
 let iteratorArray = [];
+let triNum;
 
 let genNewTriangle = true
 
@@ -43,6 +44,7 @@ function setup() {
 	// frameRate(5)
 	// noLoop()
 	noStroke()
+	triNum = 0;
 }
 
 function draw() {
@@ -60,7 +62,8 @@ function draw() {
 		}
 	}
 
-
+	//console.log("iterator size: " + iteratorArray.length);
+	
 	for (let i = 0; i < iteratorArray.length; i++) {
 		const nowTriangle = triangles[iteratorArray[i]]
 		// print(nowTriangle)
@@ -68,12 +71,25 @@ function draw() {
 		nowTriangle.bezier[2].lerp(nowTriangle.bezier[3], 0.08)
 		colorMode(RGB)
 		const nowColor = lerpColor(nowTriangle.color.from, nowTriangle.color.to, nowTriangle.iteration / 100)
-		fill(nowColor)
+		if (nowTriangle.triNumber == 10) {
+			fill(nowColor)
+		} else {
+			fill(nowColor)
+		}
 		bezier(nowTriangle.bezier[0].x, nowTriangle.bezier[0].y,
 			nowTriangle.bezier[1].x, nowTriangle.bezier[1].y,
 			nowTriangle.bezier[2].x, nowTriangle.bezier[2].y,
 			nowTriangle.bezier[3].x, nowTriangle.bezier[3].y)
 		iteratorArray[i]++
+		fill(0)
+		// find the center of the triangle
+		let xTri = (nowTriangle.triangle[0].x + nowTriangle.triangle[1].x + nowTriangle.triangle[2].x) / 3
+		let yTri = (nowTriangle.triangle[0].y + nowTriangle.triangle[1].y + nowTriangle.triangle[2].y) / 3
+
+		// label the triangles from 0 to 60
+		if (nowTriangle.triNumber < 60) {
+			text("t:" +nowTriangle.triNumber, xTri-10, yTri);
+		}
 		nowTriangle.iteration++
 		if (iteratorArray[i] > triangles.length - 1) {
 			iteratorArray.splice(i, 1)
@@ -96,6 +112,8 @@ function findNewTriangle() {
 	const nowVertex = filler.nowVertex.copy()
 	const lastVertex = filler.lastVertex.copy()
 
+	triNum++;
+	
 	if (filler.count % 2 == 0) {
 		const vec1 = p5.Vector.sub(targetVertex, nowVertex).mult(random(0.3, 0.7));
 		if (vec1.mag() < 0.1) {
@@ -114,6 +132,7 @@ function findNewTriangle() {
 			triangle: [nowVertex.copy(), filler.nowVertex.copy(), lastVertex.copy()],
 			bezier: [nowVertex.copy(), filler.nowVertex.copy(), filler.nowVertex.copy(), lastVertex.copy()],
 			iteration: 0,
+			triNumber: triNum,
 			color: generateColor()
 		}
 		// print(filler.nowVertex)
@@ -127,6 +146,7 @@ function findNewTriangle() {
 			triangle: [nowVertex.copy(), targetVertex.copy(), lastVertex.copy()],
 			bezier: [nowVertex.copy(), targetVertex.copy(), targetVertex.copy(), lastVertex.copy()],
 			iteration: 0,
+			triNumber: triNum,
 			color: generateColor()
 		}
 		// print(2)
@@ -160,8 +180,8 @@ function generateColor() {
 let lapse = 0;    // mouse timer
 function mousePressed() {
 	// prevents mouse press from registering twice
-	if (millis() - lapse > 400) {
-		save("img_" + month() + '-' + day() + '_' + hour() + '-' + minute() + '-' + second() + ".jpg");
-		lapse = millis();
-	}
+	// if (millis() - lapse > 400) {
+	// 	save("img_" + month() + '-' + day() + '_' + hour() + '-' + minute() + '-' + second() + ".jpg");
+	// 	lapse = millis();
+	// }
 }
