@@ -92,7 +92,7 @@ function draw() {
 
 		// label the triangles from 0 to 70
 		if (nowTriangle.triNumber < 70) {
-			text("t:" + nowTriangle.triNumber, nowTriangle.xcenter - 10, nowTriangle.ycenter);
+//			text("t:" + nowTriangle.triNumber, nowTriangle.xcenter - 10, nowTriangle.ycenter);
 		}
 		nowTriangle.iteration++
 		if (iteratorArray[i] > triangles.length - 1) {
@@ -104,6 +104,12 @@ function draw() {
 
 	if (random() < 0.03) {
 		newIteration()
+	}
+
+	// console.log("fr:" + frameCount)
+	if (!(frameCount % 1500)) {
+		console.log("reset Colors:" + frameCount)
+		resetTriColors()
 	}
 }
 
@@ -164,12 +170,15 @@ function findNewTriangle() {
 
 function keyPressed() {
 	// setup()
+	resetTriColors()
 
+}
+function resetTriColors() {
 	let arrayStr = ""
 
-	let drawTriangle = 20
+	let drawTriangle = 0
 	if (triangles.length > 60) {
-		drawTriangle = 70;
+		drawTriangle = 50;
 	}
 
 	for (let i = 0; i < drawTriangle; i++) {
@@ -182,6 +191,7 @@ function keyPressed() {
 		arrayStr += nowTriangle.triNumber + " "
 	}
 	//	console.log("arr:" + arrayStr)
+
 }
 
 function mousePressed() {
