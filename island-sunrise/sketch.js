@@ -1,4 +1,4 @@
-//For the #WCCChallenge, theme: "tiny island"
+//For the #WCCChallenge, theme: "tiny island" 2
 // noprotect
 let sky, water, song, island;
 let sunriseColor;
