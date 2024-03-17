@@ -107,6 +107,7 @@ function draw() {
 	}
 
 	// console.log("fr:" + frameCount)
+	// reset the triangle colors every 1500 frames
 	if (!(frameCount % 1500)) {
 		console.log("reset Colors:" + frameCount)
 		resetTriColors()
@@ -173,12 +174,16 @@ function keyPressed() {
 	resetTriColors()
 
 }
+
+/**
+ * reset the triangle colors
+ */
 function resetTriColors() {
 	let arrayStr = ""
 
 	let drawTriangle = 0
 	if (triangles.length > 60) {
-		drawTriangle = 50;
+		drawTriangle = 70;
 	}
 
 	for (let i = 0; i < drawTriangle; i++) {
