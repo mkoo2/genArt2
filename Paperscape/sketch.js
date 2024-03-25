@@ -263,7 +263,7 @@ class Wall {
           percent += percentInc;
         }
       }
-    }
+    } // window
   }
 
   createWindow(topWindowLine, bottomWindowLine, windowSize, windowColCount, windowInc, sign, initPos) {
@@ -280,6 +280,8 @@ class Wall {
 
   draw() {
     //    console.log("indx: " + this.indxw)
+
+    // if index is 10, fill the color with magenta
     if (this.indxw == 10) {
       //      console.log("color23:" +this.color)
       fill(color('magenta'));
@@ -307,7 +309,7 @@ class Wall {
       quad(window[0].x, window[0].y, window[1].x, window[1].y, window[2].x, window[2].y, window[3].x, window[3].y);
     }
   }
-}
+} // class wall
 
 class Line {
   constructor(p0, p1) {
