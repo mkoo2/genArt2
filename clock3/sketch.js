@@ -33,7 +33,7 @@ function draw() {
   noStroke();
   fill(255);
   //text(hr + ":" + mn + ":" + sc, -90, 195);
-  text("T3:" +d.toLocaleTimeString(), 40, 395);
+  text("T2-" +d.toLocaleTimeString(), 40, 395);
 
   text("12", 170, 120);
   text("6", 185, 320);
