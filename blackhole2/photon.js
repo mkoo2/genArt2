@@ -9,6 +9,7 @@ class Photon {
     stop() {
         this.stopped = true;
     }
+    
     update() {
         if (!this.stopped) {
             if (frameCount % 5 == 0) {
@@ -18,12 +19,12 @@ class Photon {
             deltaV.mult(dt);
             this.pos.add(deltaV);
         }
-
+        
+        // delete history greater than 500
         if (this.history.length > 500) {
             this.history.splice(0, 1);
         }
     }
-
 
     show() {
         //strokeWeight(4);

@@ -17,6 +17,12 @@ function rotationAxis(a, r) {
   return obj;
 }
 
+function mousePressed() {
+  let d = new Date();
+  console.log("xx-" +d.toLocaleTimeString());  // -> "7:38:05 AM"
+  
+}
+
 function draw() {
   background(0);
 
@@ -25,7 +31,7 @@ function draw() {
   let sc = second();
 
   let d = new Date();
-  d.toLocaleTimeString();  // -> "7:38:05 AM"
+  //console.log("xx-" +d.toLocaleTimeString());  // -> "7:38:05 AM"
 
   //fill(130,250,0);
   // noStroke();
